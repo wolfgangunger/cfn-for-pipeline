@@ -16,7 +16,7 @@ Resources:
   LambdaRole:
     Type: 'AWS::IAM::Role'
     Properties:
-        RoleName: wu-JenkinsRole    
+        RoleName: lambda-exec-role    
         Path: "/"    
         AssumeRolePolicyDocument: 
           Version: "2012-10-17"
