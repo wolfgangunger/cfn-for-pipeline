@@ -12,6 +12,37 @@ Parameters:
     Type: String    
 
 Resources:
+
+  LambdaRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+        RoleName: wu-JenkinsRole    
+        Path: "/"    
+        AssumeRolePolicyDocument: 
+          Version: "2012-10-17"
+          Statement: 
+            - 
+              Effect: "Allow"
+              Principal: 
+                Service: 
+                  - "lambda.amazonaws.com"
+              Action: 
+                  - "sts:AssumeRole" 
+        Policies:
+            - PolicyName: wu-AmazonSSMFullAccess
+              PolicyDocument:
+                Version: '2012-10-17'
+                Statement:
+                  - Effect: Allow
+                    Action:
+                        - 'cloudwatch:PutMetricData'
+                        - 'ds:CreateComputer'
+                        - 'ds:DescribeDirectories'
+                        - 'ec2:DescribeInstanceStatus'
+                        - 'logs:*'
+                        - 'ssm:*'
+                    Resource: '*'
+
   Lambda1:
     Type: "AWS::Lambda::Function"
     Properties: 
@@ -23,6 +54,7 @@ Resources:
         FunctionName: wu-HelloWorldPyByCF
         Handler: index.lambda_handler
         Runtime: python2.7
+        Role: !Ref LambdaRole
         Tags:
             - Key: Name
               Value: 'ppQueue1'
