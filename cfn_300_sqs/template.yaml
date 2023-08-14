@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >
+    SQS Queue 
+# created by wolfgang unger - 6.2018
+Parameters:
+  OwnerName:
+    Description: An owner name, used in tags
+    Type: String
+    Default: "wolfgang.unger"
+  Stage:
+    Description: the stage for the environment
+    Type: String    
+
+Resources:
+  MyQueue:
+   Type: AWS::SQS::Queue
+   Properties:
+    QueueName: "ppQueue1"
+    VisibilityTimeout: 30
+    DelaySeconds: 1
+    #KmsMasterKeyId: arn:aws:kms:eu-central-1...
+    Tags:
+        - Key: Name
+          Value: 'ppQueue1'
+        - Key: Owner
+          Value: !Ref OwnerName         
+        - Key: Stage
+          Value: !Ref Stage   
+
+
+

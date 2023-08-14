@@ -1,0 +1,50 @@
+
+Description: >
+    User Resource example
+#  by wolfgang unger 9.3.2018
+
+Parameters:
+  OwnerName:
+    Description: An owner name, used in tags
+    Type: String
+    Default: "wolfgang.unger"
+  Stage:
+    Description: the stage for the environment
+    Type: String    
+
+Resources:
+  JenkinsUser:
+    Type: 'AWS::IAM::User'
+    Properties:
+        UserName: Jenkins    
+        Path: "/"
+        LoginProfile:
+            Password: jenKins12345!        
+        Policies:
+            - PolicyName: AmazonSSMFullAccess
+              PolicyDocument:
+                Version: '2012-10-17'
+                Statement:
+                  - Effect: Allow
+                    Action:
+                        - 'cloudwatch:PutMetricData'
+                        - 'ds:CreateComputer'
+                        - 'ds:DescribeDirectories'
+                        - 'ec2:DescribeInstanceStatus'
+                        - 'logs:*'
+                        - 'ssm:*'
+                        - 'ec2messages:*'
+                    Resource: '*'
+        Tags:
+        - Key: Name
+          Value: 'JenkinsUser'
+        - Key: Owner
+          Value: !Ref OwnerName         
+        - Key: Stage
+          Value: !Ref Stage       
+
+
+
+
+
+

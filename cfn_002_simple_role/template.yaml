@@ -1,0 +1,56 @@
+
+Description: >
+    Role Resource example
+#  by wolfgang unger 9.12.2018
+
+Parameters:
+  OwnerName:
+    Description: An owner name, used in tags
+    Type: String
+    Default: "wolfgang.unger"
+  Stage:
+    Description: the stage for the environment
+    Type: String        
+
+Resources:
+  JenkinsRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+        RoleName: wu-JenkinsRole    
+        Path: "/"    
+        AssumeRolePolicyDocument: 
+          Version: "2012-10-17"
+          Statement: 
+            - 
+              Effect: "Allow"
+              Principal: 
+                Service: 
+                  - "ec2.amazonaws.com"
+              Action: 
+                  - "sts:AssumeRole" 
+        Policies:
+            - PolicyName: wu-AmazonSSMFullAccess
+              PolicyDocument:
+                Version: '2012-10-17'
+                Statement:
+                  - Effect: Allow
+                    Action:
+                        - 'cloudwatch:PutMetricData'
+                        - 'ds:CreateComputer'
+                        - 'ds:DescribeDirectories'
+                        - 'ec2:DescribeInstanceStatus'
+                        - 'logs:*'
+                        - 'ssm:*'
+                        - 'ec2messages:*'
+                    Resource: '*'
+        Tags:
+        - Key: Name
+          Value: 'wu-JenkinsRole'
+        - Key: Owner
+          Value: !Ref OwnerName                   
+        - Key: Stage
+          Value: !Ref Stage     
+
+
+
+

@@ -1,0 +1,27 @@
+Description: >
+    simple resource example
+#  by wolfgang unger 9.3.2018
+Parameters:
+  OwnerName:
+    Description: An owner name, used in tags
+    Type: String
+    Default: "wolfgang.unger"
+  Stage:
+    Description: the stage for the environment
+    Type: String    
+
+Resources:
+  MasterStorage:
+    Type: 'AWS::EFS::FileSystem'
+    Properties:
+      FileSystemTags:
+      - Key: Name
+        Value: 'myFilesystem'
+      PerformanceMode: generalPurpose
+      Tags:
+        - Key: Name
+          Value: 'myFilesystem'
+        - Key: Owner
+          Value: !Ref OwnerName         
+        - Key: Stage
+          Value: !Ref Stage   
