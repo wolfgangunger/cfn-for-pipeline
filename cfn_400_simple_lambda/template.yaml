@@ -16,7 +16,7 @@ Resources:
   LambdaRole:
     Type: 'AWS::IAM::Role'
     Properties:
-        RoleName: lambda-exec-role    
+        RoleName: lambdaExecRole    
         Path: "/"    
         AssumeRolePolicyDocument: 
           Version: "2012-10-17"
