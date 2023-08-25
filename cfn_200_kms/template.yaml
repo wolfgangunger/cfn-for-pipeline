@@ -1,0 +1,53 @@
+
+Description: >
+    User Resource example
+#  by wolfgang unger 9.3.2018
+
+Parameters:
+  OwnerName:
+    Description: An owner name, used in tags
+    Type: String
+    Default: "wolfgang.unger"
+ 
+
+Resources:
+  KMSEncryptionKey:
+    Type: 'AWS::KMS::Key'
+    Properties:
+      KeyPolicy:
+        Statement:
+          - Action: 'kms:*'
+            Effect: Allow
+            Principal:
+              AWS: !Join 
+                - ''
+                - - 'arn:'
+                  - !Ref 'AWS::Partition'
+                  - ':iam::'
+                  - !Ref 'AWS::AccountId' 
+                  - ':root'
+            Resource: '*'        
+          - Action: 'kms:*'
+            Effect: Allow
+            Principal:
+              Service: cloudformation.amazonaws.com      
+            Resource: '*'
+          - Action:
+              - 'kms:Decrypt'
+              - 'kms:DescribeKey'
+            Effect: Allow
+            Principal:
+              Service: cloudformation.amazonaws.com      
+            Resource: '*'
+        Version: 2012-10-17
+      Tags:
+        - Key: Name
+          Value: KMS-Key  
+        - Key: OwnerName
+          Value: !Ref OwnerName
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete               
+
+
+
+

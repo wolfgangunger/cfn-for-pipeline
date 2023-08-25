@@ -23,3 +23,6 @@ other stacks outputs to be deployed later on, like for example :
 400-499 Container Service   
 500-599 Monitoring   
 etc   
+
+See more Infos about this :  
+<a href="https://www.sccbrasil.com/blog/aws/cfn-structure.html" target="_blank">Structuring CloudFormation</a>  
