@@ -1,5 +1,5 @@
 # cfn-for-pipeline
-repo for cfn templates for codepipeline deployment  
+repo for cfn templates for codepipline deployment  
   
 Example Project with Automated Pipeline (CloudFormation)  
 <a href="https://github.com/wolfgangunger/cfn-pipeline" target="_blank">CFN Pipeline for CFN Deployments</a>   
@@ -8,6 +8,9 @@ Example Project with Automated Pipeline (CDK)
 <a href="https://github.com/wolfgangunger/cdk-cfn-pipeline" target="_blank">CDK Pipeline for CFN Deployments</a>   
    
 ## structure
+folder /scripts
+contains the python to create the pipelines with boto3, must be included in your CFN repo
+
 each template must be in a subfolder names cfn_xxx  
   
 each subfolder must contain a cfn template named template.yaml and the parameter jsons  
